@@ -1,0 +1,10 @@
+{
+    "scriptName"                 : "Steam",
+    "id"                         : "applications.games.warlock_master_of_the_arcane.steam",
+    "compatibleOperatingSystems" : [
+        "LINUX"
+    ],
+    "testingOperatingSystems" : [],
+    "free"                    : false,
+    "requiresPatch"           : false
+}
