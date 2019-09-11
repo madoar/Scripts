@@ -92,7 +92,7 @@ class D3DX9 {
 
         this.extractDirectXToSystemDirectory(progressBar, filesToExtractx86, system32directory, "d3dx9*.dll");
 
-        if (this.architecture() == "amd64") {
+        if (this.wine.architecture() == "amd64") {
             const system64directory = this.wine.system64directory();
 
             new CabExtract()

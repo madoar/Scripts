@@ -1,12 +1,12 @@
-const {ls, mkdir, fileExists, cat, lns, remove, touch, createTempFile} = include("utils.functions.filesystem.files");
-const {Extractor} = include("utils.functions.filesystem.extract");
+const { ls, mkdir, fileExists, cat, lns, remove, touch, createTempFile } = include("utils.functions.filesystem.files");
+const { Extractor } = include("utils.functions.filesystem.extract");
 const Downloader = include("utils.functions.net.download");
 const Resource = include("utils.functions.net.resource");
-const {WINE_PREFIX_DIR} = include("engines.wine.engine.constants");
+const { WINE_PREFIX_DIR } = include("engines.wine.engine.constants");
 
 const configFactory = Bean("compatibleConfigFileFormatFactory");
 const exeAnalyser = Bean("exeAnalyser");
-const propertyReader = Bean("propertyReader")
+const propertyReader = Bean("propertyReader");
 const operatingSystemFetcher = Bean("operatingSystemFetcher");
 
 const FileClass = Java.type("java.io.File");
@@ -22,7 +22,8 @@ module.default = class WineEngine {
         this._containerRegex = /[^a-z0-9_\- ]/gi;
         this._ldPath = propertyReader.getProperty("application.environment.ld");
         this._wineEnginesDirectory = propertyReader.getProperty("application.user.engines") + "/wine";
-        this._winePrefixesDirectory = propertyReader.getProperty("application.user.containers") + "/" + WINE_PREFIX_DIR + "/";
+        this._winePrefixesDirectory =
+            propertyReader.getProperty("application.user.containers") + "/" + WINE_PREFIX_DIR + "/";
         this._wineWebServiceUrl = propertyReader.getProperty("webservice.wine.url");
         this._wizard = null;
         this._workingContainer = "";
@@ -446,22 +447,13 @@ module.default = class WineEngine {
 
         if (architecture == "amd64") {
             ldPath =
-                this._wineEnginesDirectory +
-                "/runtime/lib64/:" +
-                this._wineEnginesDirectory +
-                "/runtime/lib/:" +
                 this.getLocalDirectory(subCategory, version) +
                 "/lib64/:" +
                 this.getLocalDirectory(subCategory, version) +
                 "/lib/:" +
                 ldPath;
         } else {
-            ldPath =
-                this._wineEnginesDirectory +
-                "/runtime/lib/:" +
-                this.getLocalDirectory(subCategory, version) +
-                "/lib/:" +
-                ldPath;
+            ldPath = this.getLocalDirectory(subCategory, version) + "/lib/:" + ldPath;
         }
         environment.put("LD_LIBRARY_PATH", ldPath);
 
@@ -541,4 +533,4 @@ module.default = class WineEngine {
     setWizard(wizard) {
         this._wizard = wizard;
     }
-}
+};
